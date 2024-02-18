@@ -1,36 +1,44 @@
 
 
-let count = 40;
+let  count = 40;
 let seatIncrement = 0;
+let allSeatName = '';
 
 const allBtn = document.getElementsByClassName('btn');
-for (const btn of allBtn) {
-    btn.addEventListener('click', function (e) {
-        if (btn >= 4) {
-            alert('hfghf')
-        }
-        if (count > 0) {
-            count--;
-        }
+for(const btns of allBtn){
+    btns.addEventListener('click', function(e){
+    
+        const mSeetName = document.getElementById('seetName');
+        const mSeetNumber =(e.target.innerText);
 
-        seatInnerText('seetCount', count)
+        if(allSeatName.includes(mSeetNumber))return
+        console.log(mSeetName);
+        console.log(mSeetNumber);
+        
+        if(count>0){
+            count -- ;
+        }else{return}
+      
+     seetInnarText('seetCount' ,count)
+    
+     if(seatIncrement<4){
+        seatIncrement ++;
+     }else {return}
 
-        if (seatIncrement < 40) {
-            seatIncrement++;
-        }
-        seatInnerText('seetIncrement', seatIncrement)
-        btn.style.backgroundColor = "green";
-
-        const seatNumber = (e.target.innerText);
-        const seatName = document.getElementById('seetName');
+       allSeatName = allSeatName+mSeetNumber
+       seetInnarText('seetIncrement', seatIncrement )
+        btns.style.backgroundColor = "green";
+     
+        const seetNumber =(e.target.innerText);
+        const seetName = document.getElementById('seetName');
         const h1 = document.createElement("h1");
-        h1.innerText = seatNumber;
+        h1.innerText = seetNumber;
+      
+        seetName.appendChild(h1)
 
-        seatName.appendChild(h1)
-
-
+      
         const classNmae = document.getElementById('classNmae');
-        const h2 = document.createElement('h2');
+        const h2 =  document.createElement('h2');
         h2.innerHTML = 'Economoy'
         classNmae.appendChild(h2)
 
@@ -41,33 +49,56 @@ for (const btn of allBtn) {
 
         const total = document.getElementById('totalprice').innerText;
 
-        const convertMoney = parseInt(total);
-        document.getElementById('totalprice').innerText = convertMoney + parseInt(550);
+       const convertMoney = parseInt(total);
+       document.getElementById('totalprice').innerText = convertMoney + parseInt(550);
+     
+     
 
-
-
-
+       
     })
 }
 
 
-function seatInnerText(id, value) {
+function seetInnarText(id , value){
     // seetCount.innerText=count;
     document.getElementById(id).innerText = value;
-
+ 
 
 }
 
-const nextbtn = document.getElementById('nextbtn');
 
-nextbtn.addEventListener('click', function () {
-    const popup = document.getElementById('popup');
-    // popup.remove('this'.remove)
+// Apply Coupon
 
+const applyCoupon = () => {
+    const total = document.getElementById('totalprice').innerText;
 
-})
-if (nextbtn === 'click') {
-    const getElementByID = document.getElementById('popup');
-    getElementByID.classList();
-    console.log(getElementByID)
+    const convertMoney = parseInt(total);    
+     
+    const couponCode = document.getElementById('coupon').value
+    if(seatIncrement > 3 && couponCode === "Couple 20"){
+    
+        document.getElementById('totalprice').innerText = convertMoney / 100 * 80; 
+    }
+
+    if(seatIncrement > 3 && couponCode === "NEW15"){
+        document.getElementById('totalprice').innerText = convertMoney / 100 * 70;
+    }
+    console.log('clicked');
 }
+
+
+
+// popup
+
+
+const section = document.querySelector("section"),
+  overlay = document.querySelector(".overlay"),
+  showBtn = document.querySelector("#nextbtn"),
+  closeBtn = document.querySelector(".close-btn");
+showBtn.addEventListener("click", () => section.classList.add("active"));
+overlay.addEventListener("click", () =>
+  section.classList.remove("active")
+);
+closeBtn.addEventListener("click", () =>
+  section.classList.remove("active")
+);
